@@ -37,6 +37,12 @@
 /processorParam:Quality=Best
 /build:crunchSound.wav
 
+#begin dream.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:dream.mp3
+
 #begin endscreen.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -60,12 +66,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:hamburgerIntro.png
-
-#begin Life could be a dream.mp3
-/importer:Mp3Importer
-/processor:SongProcessor
-/processorParam:Quality=Best
-/build:Life could be a dream.mp3
 
 #begin stockDude.png
 /importer:TextureImporter

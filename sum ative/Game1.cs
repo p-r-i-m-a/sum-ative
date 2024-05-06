@@ -10,6 +10,7 @@ namespace sum_ative
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
+        Vector2 burgerSpeed;
         Texture2D burger, dude, introTexture, endTexture;
         Rectangle introRect, endRect, burgerRect, dudeRect;
         SoundEffect burgerSound, crunchSound;
@@ -43,7 +44,7 @@ namespace sum_ative
             seconds = 0f;
             screen = Screen.intro;
 
-
+            burgerSpeed = new Vector2(4, 0);
             burgerRect = new Rectangle(50, 100, 150, 150);
             dudeRect = new Rectangle(600, 50, 200, 500);
             introRect = new Rectangle(0, 0, 800, 500);
@@ -67,7 +68,7 @@ namespace sum_ative
             burger = Content.Load<Texture2D>("bamgurgr");
             dude = Content.Load<Texture2D>("stockDude");
 
-            lcbad = Content.Load<Song>("Life could be a dream");
+            lcbad = Content.Load<Song>("dream");
             burgerSound = Content.Load<SoundEffect>("burgerSound");
             crunchSound = Content.Load<SoundEffect>("crunchSound");
 
@@ -90,6 +91,7 @@ namespace sum_ative
                 {
                     screen = Screen.play;
                     MediaPlayer.Stop();
+                    burgerSound.Play();
                 }
             }
             else if (screen == Screen.play)
@@ -97,10 +99,26 @@ namespace sum_ative
                 if (mouseState.LeftButton == ButtonState.Pressed && prevMouseState.LeftButton == ButtonState.Released)
                     screen = Screen.end;
 
+                if (burgerRect.Right != dudeRect.Left)
+                {
+                    burgerRect.X += (int)burgerSpeed.X;
+
+                }
+
+                int counter = 0;
                 if (burgerRect.Right == dudeRect.Left)
                 {
-                    crunchSound.Play();
+                    counter = counter + 1;
+                    if (counter == 1)
+                    {
+                        crunchSound.Play();
+
+                    }
                 }
+
+
+
+
 
             }
             else if (screen == Screen.end)
@@ -127,8 +145,13 @@ namespace sum_ative
             }
             else if (screen == Screen.play)
             {
+
+                if (burgerRect.Right != dudeRect.Left)
+                {
+                    _spriteBatch.Draw(burger, burgerRect, Color.White);
+
+                }
                 _spriteBatch.Draw(dude, dudeRect, Color.White);
-                _spriteBatch.Draw(burger, burgerRect, Color.White);
 
             }
             else if (screen == Screen.end)
